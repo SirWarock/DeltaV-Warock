@@ -8,6 +8,7 @@ namespace Content.Shared.Armor;
 /// <summary>
 /// Used for clothing that reduces damage when worn.
 /// </summary>
+[AutoGenerateComponentState] // DeltaV - Give armor melee stamina resistance
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedArmorSystem))]
 public sealed partial class ArmorComponent : Component
 {
@@ -30,11 +31,13 @@ public sealed partial class ArmorComponent : Component
     [DataField]
     public bool ShowArmorOnExamine = true;
 
+    // Start DeltaV - Give armor melee stamina resistance
     /// <summary>
     /// DeltaV - Gets the effective stamina melee damage coefficient, based on the armor's blunt protection.
     /// </summary>
-    [ViewVariables]
-    public float StaminaMeleeDamageCoefficient => Modifiers.Coefficients.GetValueOrDefault("Blunt", 1.0f);
+    [DataField, AutoNetworkedField]
+    public float? StaminaMeleeDamageCoefficient;
+    // End DeltaV - Give armor melee stamina resistance
 }
 
 /// <summary>

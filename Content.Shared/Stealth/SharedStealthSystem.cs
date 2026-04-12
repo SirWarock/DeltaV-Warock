@@ -1,12 +1,7 @@
 using Content.Shared._DV.Stealth; // DeltaV - Make certain items unable to stealth.
-using Content.Shared._DV.Stealth.Components; // DeltaV - Make certain items unable to stealth.
 using Content.Shared.Examine;
-using Content.Shared.Hands; // DeltaV - Make certain items unable to stealth.
-using Content.Shared.Inventory; // DeltaV - Make certain items unable to stealth.
 using Content.Shared.Mobs;
-using Content.Shared.Mobs.Systems;
 using Content.Shared.Stealth.Components;
-using Robust.Shared.Containers; // DeltaV - Make certain items unable to stealth.
 using Robust.Shared.GameStates;
 using Robust.Shared.Timing;
 

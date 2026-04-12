@@ -25,7 +25,7 @@
     slots:
     - Back
   - type: ClothingSpeedModifier
-    sprintModifier: 0.8
+    sprintModifier: 0.9
   - type: Appearance
   - type: Wieldable
     unwieldOnUse: false
@@ -44,11 +44,11 @@
     soundEmpty:
       path: /Audio/Weapons/Guns/Empty/lmg_empty.ogg
   - type: GunBipod
-    setupDelay: 1.25
+    setupDelay: 2
     minAngle: -12
     maxAngle: -20
     angleDecay: 4
-    fireRateIncrease: 4
+    fireRateIncrease: 3
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/lmg_cock.ogg

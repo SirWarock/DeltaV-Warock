@@ -53,15 +53,9 @@
     - K9
   - type: StealTarget
     stealGroup: AnimalSecurity # DeltaV - Adjusts because we have multiple possible sec animals
-  - type: Temperature
+  - type: TemperatureDamage
     heatDamageThreshold: 315 # 10 lower than base
     coldDamageThreshold: 240 # 20 lower than base
-  - type: Grappler
-    handDisabling: SingleActive
-    grapplingPart: grapple-part-jaws
-    proneOnGrapple: true # Make sure Laika isn't shot by sprays
-    grappleSound:
-      collection: VulpkaninGrowls
 
 - type: entity
   parent: MobCarp
@@ -102,6 +96,50 @@
     description: "The real brains behind the Justice department. Your honour my client is not fishy!"
     job: RoleCarpy
   - type: GhostTakeoverAvailable
+  -  type: Body
+     prototype: Human
+  - type: Hands
+  - type: InnateTool
+    tools:
+      - id: LuxuryPenCarpy
+      - id: RubberStampCarpy
+  - type: UserInterface
+    interfaces:
+      enum.SurgeryUIKey.Key:
+        type: SurgeryBui
+      enum.StrippingUiKey.Key:
+        type: StrippableBoundUserInterface
+
+- type: entity
+  name: legal carp stamp
+  parent: RubberStampBase
+  id: RubberStampCarpy
+  description: A stamp specially designed for legal carps, to mark documents that aren't fishy.
+  components:
+    - type: Stamp
+      stampedName: stamp-component-stamped-name-carpy
+      stampedColor: "#a81f3d"
+      stampState: "paper_stamp-notary"
+    - type: Sprite
+      sprite: _DV/Objects/Misc/stamps.rsi
+      state: stamp-notary
+
+- type: entity
+  name: legal carp pen
+  parent: LuxuryPen
+  id: LuxuryPenCarpy
+  description: The pen is mightier than the sword. This pen is also sharper thank to its carp tooth nib!
+  components:
+  - type: MeleeWeapon
+    angle: 0
+    soundHit:
+      path: /Audio/Effects/bite.ogg
+    damage:
+      types:
+        Piercing: 5
+        Slash: 10
+    animation: WeaponArcBite
+
 
 - type: entity
   name: Silvia
@@ -155,8 +193,10 @@
           amount: 1
           prob: 0.2
     - type: Bloodstream
-      bloodMaxVolume: 200
-      bloodReagent: Cryoxadone
+      bloodReferenceSolution:
+        reagents:
+        - ReagentId: Cryoxadone
+          Quantity: 200
     - type: Fixtures
       fixtures:
         fix1:

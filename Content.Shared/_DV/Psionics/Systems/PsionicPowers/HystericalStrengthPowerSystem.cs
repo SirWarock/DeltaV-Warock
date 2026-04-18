@@ -7,14 +7,12 @@ using Content.Shared.Damage.Systems;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Mobs;
 using Content.Shared.Popups;
-using Content.Shared.Psionics.Glimmer;
 using Content.Shared.StatusEffectNew;
 using Content.Shared.StatusEffectNew.Components;
 using Content.Shared.Stunnable;
 using Robust.Shared.Physics.Collision.Shapes;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Toolshed.TypeParsers;
 
 namespace Content.Shared._DV.Psionics.Systems.PsionicPowers;
 

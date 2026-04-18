@@ -1,6 +1,9 @@
+using Content.Shared._DV.Clothing.Events; // DeltaV - Added Hysterical Power
 using Content.Shared._DV.Psionics.Events; // DeltaV - Psionics Refactor
 using Content.Shared.Body.Events;
 using Content.Shared.Damage.Events;
+using Content.Shared.Damage.Systems; // DeltaV - Added Hysterical Power
+using Content.Shared.Mobs; // DeltaV - Added Hysterical Power
 using Content.Shared.Mobs.Events;
 using Content.Shared.Movement.Events;
 using Content.Shared.Movement.Systems;
@@ -40,6 +43,10 @@ public sealed partial class StatusEffectsSystem
         // DeltaV Start - Psionics Refactor
         SubscribeLocalEvent<StatusEffectContainerComponent, PsionicPowerUseAttemptEvent>(RefRelayStatusEffectEvent);
         SubscribeLocalEvent<StatusEffectContainerComponent, TargetedByPsionicPowerEvent>(RefRelayStatusEffectEvent);
+        SubscribeLocalEvent<StatusEffectContainerComponent, DispelledEvent>(RelayStatusEffectEvent);
+        SubscribeLocalEvent<StatusEffectContainerComponent, ModifySlowOnDamageSpeedEvent>(RefRelayStatusEffectEvent); // For Hysterical Strength Power
+        SubscribeLocalEvent<StatusEffectContainerComponent, ModifyClothingSlowdownEvent>(RefRelayStatusEffectEvent); // For Hysterical Strength Power
+        SubscribeLocalEvent<StatusEffectContainerComponent, MobStateChangedEvent>(RefRelayStatusEffectEvent); // For Hysterical Strength Power <- REMOVE THIS IF UPSTREAM ADDS THIS
         // DeltaV End - Psionics Refactor
     }
 

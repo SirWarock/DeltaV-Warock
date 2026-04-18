@@ -2,6 +2,7 @@
 psionic-power-name-dispel = Dispel
 psionic-power-name-eruption = Psionic Eruption
 psionic-power-name-fractured-form = Fractured Form
+psionic-power-name-hysterical-strength = Hysterical Strength
 psionic-power-name-mass-sleep = Mass Sleep
 psionic-power-name-mindswap = Mind Swap
 psionic-power-name-mindswap-return = Mind Swap Return
@@ -33,6 +34,11 @@ psionic-power-fractured-form-sleepy = You feel very sleepy... You should find so
 psionic-power-fractured-form-ssd = { CAPITALIZE(SUBJECT($ent)) } { CONJUGATE-BE($ent) } in a deep sleep. { CAPITALIZE(POSS-ADJ($ent)) } eyes seem to be darting around as if dreaming.
 psionic-power-fractured-form-examine-self = You feel a strange connection to { OBJECT($ent) }.
 psionic-power-fractured-form-dispelled = Someone dispelled your sleepiness..
+
+# Hysterical Strength
+psionic-power-hysterical-strength-used = Your muscles begin to burn.. it's hard to breathe.
+psionic-power-hysterical-strength-used-others = {CAPITALIZE(THE($user))}'s muscles begin to convulse!
+psionic-power-hysterical-strength-being-dispelled = {CAPITALIZE(THE($dispelled))}'s muscles seize up!
 
 # Metapsionic Pulse
 psionic-power-metapsionic-success = You detect psychic presence there.

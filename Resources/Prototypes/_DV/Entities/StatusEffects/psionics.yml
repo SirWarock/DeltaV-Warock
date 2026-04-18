@@ -33,3 +33,12 @@
   parent: [ StatusEffectSlowdown, MobStatusEffectDebuff ]
   id: MassSleepSlowdownStatusEffect
   name: slowed by mass sleep power
+
+- type: entity
+  parent: MobStatusEffectBase
+  id: HystericalStrengthStatusEffect
+  name: affected by hysterical strength
+  components:
+  - type: HystericalStrengthStatusEffect
+  - type: ClothingSlowResistance
+  - type: IgnoreSlowOnDamage

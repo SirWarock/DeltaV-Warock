@@ -32,6 +32,7 @@ public sealed class HystericalStrengthPowerSystem : BasePsionicPowerSystem<Hyste
 
         SubscribeLocalEvent<HystericalStrengthStatusEffectComponent, StatusEffectRelayedEvent<MobStateChangedEvent>>(OnMobStateChanged);
         SubscribeLocalEvent<HystericalStrengthStatusEffectComponent, StatusEffectRelayedEvent<DispelledEvent>>(OnActiveDispelled);
+        SubscribeLocalEvent<HystericalStrengthStatusEffectComponent, StatusEffectRelayedEvent<PsionicSuppressedEvent>>(OnActiveSuppressed);
     }
 
     protected override void OnPowerUsed(Entity<HystericalStrengthPowerComponent> psionic, ref HystericalStrengthPowerActionEvent args)
@@ -74,15 +75,25 @@ public sealed class HystericalStrengthPowerSystem : BasePsionicPowerSystem<Hyste
             Action.SetToggled(performer.Comp.ActionEntity, false);
     }
 
-    private void OnActiveDispelled(Entity<HystericalStrengthStatusEffectComponent> effect, ref StatusEffectRelayedEvent<DispelledEvent> args)
+    private void PunishPsionic(EntityUid victim, EntityUid? dispeller = null)
     {
-        StopPower(args.Args.Target, true);
+        StopPower(victim, true);
 
-        var message = Loc.GetString("psionic-power-hysterical-strength-being-dispelled", ("dispelled", Identity.Entity(args.Args.Target, EntityManager)));
+        var message = Loc.GetString("psionic-power-hysterical-strength-being-dispelled", ("dispelled", Identity.Entity(victim, EntityManager)));
 
-        Popup.PopupPredicted(message, args.Args.Target, args.Args.Dispeller, PopupType.MediumCaution);
+        Popup.PopupPredicted(message, victim, dispeller ?? victim, PopupType.MediumCaution);
         // TODO: Fix StatusEffectsArrays firing an error when adding a statuseffect amidst relaying events to statuseffects.
         //_stun.TryAddParalyzeDuration(args.Args.Target, TimeSpan.FromSeconds(6));
+    }
+
+    private void OnActiveDispelled(Entity<HystericalStrengthStatusEffectComponent> effect, ref StatusEffectRelayedEvent<DispelledEvent> args)
+    {
+        PunishPsionic(args.Args.Target, args.Args.Target);
+    }
+
+    private void OnActiveSuppressed(Entity<HystericalStrengthStatusEffectComponent> ent, ref StatusEffectRelayedEvent<PsionicSuppressedEvent> args)
+    {
+        PunishPsionic(args.Args.Victim, args.Args.Victim);
     }
 
     private void OnMobStateChanged(Entity<HystericalStrengthStatusEffectComponent> effect, ref StatusEffectRelayedEvent<MobStateChangedEvent> args)

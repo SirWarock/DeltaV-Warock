@@ -1,4 +1,4 @@
-﻿using Content.Shared._DV.Clothing.Components;
+using Content.Shared._DV.Clothing.Components;
 using Content.Shared._DV.Psionics.Components;
 using Content.Shared._DV.Psionics.Components.PsionicPowers;
 using Content.Shared._DV.Psionics.Events;

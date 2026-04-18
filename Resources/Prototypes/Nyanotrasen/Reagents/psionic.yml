@@ -36,6 +36,16 @@
           types:
             Poison: -3
             Bloodloss: -3
+      - !type:CureZombieInfection
+        conditions:
+        - !type:ReagentCondition
+          reagent: Prometheum
+          min: 20
+      - !type:EyeDamage
+        conditions:
+        - !type:ReagentCondition
+          reagent: Prometheum
+          min: 10
 
 - type: reagent
   id: SoulbreakerToxin

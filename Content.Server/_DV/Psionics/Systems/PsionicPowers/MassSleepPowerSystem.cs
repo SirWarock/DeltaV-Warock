@@ -3,10 +3,10 @@ using Content.Shared._DV.Psionics.Components.PsionicPowers;
 using Content.Shared._DV.Psionics.Events.PowerActionEvents;
 using Content.Shared._DV.Psionics.Events.PowerDoAfterEvents;
 using Content.Shared._DV.Psionics.Systems.PsionicPowers;
-using Content.Shared.Bed.Sleep;
 using Content.Shared.DoAfter;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Popups;
+using Content.Shared.StatusEffectNew;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server._DV.Psionics.Systems.PsionicPowers;
@@ -14,10 +14,11 @@ namespace Content.Server._DV.Psionics.Systems.PsionicPowers;
 public sealed class MassSleepPowerSystem : SharedMassSleepPowerSystem
 {
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly Shared.StatusEffectNew.StatusEffectsSystem _statusEffects = default!;
+    [Dependency] private readonly StatusEffectsSystem _statusEffects = default!;
     [Dependency] private readonly MovementModStatusSystem _movementMod = default!;
 
     public static readonly EntProtoId MassSleepSlowdown = "MassSleepSlowdownStatusEffect";
+    public static readonly EntProtoId MassSleepStatusEffect = "MassSleepForcedSleepStatusEffect";
     private EntityQuery<PsionicPowerDetectorComponent> _psionicDetectorQuery;
 
     public override void Initialize()
@@ -75,8 +76,15 @@ public sealed class MassSleepPowerSystem : SharedMassSleepPowerSystem
 
         foreach (var target in _lookup.GetEntitiesInRange(args.User, psionic.Comp.Radius))
         {
-            if (args.Used != target && Psionic.CanBeTargeted(target))
-                _statusEffects.TryUpdateStatusEffectDuration(target, SleepingSystem.StatusEffectForcedSleeping, psionic.Comp.Duration);
+            if (args.Used == target
+                || !Psionic.CanBeTargeted(target)
+                || !_statusEffects.TrySetStatusEffectDuration(target, MassSleepStatusEffect, out var effect, psionic.Comp.Duration)
+                || !TryComp<RegenerativeSleepingStatusEffectComponent>(effect, out var statusEffect))
+                continue;
+
+            statusEffect.Quantity = psionic.Comp.Quantity;
+            statusEffect.ReagentId = psionic.Comp.ReagentId;
+            Dirty(effect.Value, statusEffect);
         }
     }
 }

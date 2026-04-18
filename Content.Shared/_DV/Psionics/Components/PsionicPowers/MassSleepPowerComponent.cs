@@ -1,3 +1,4 @@
+using Content.Shared.FixedPoint;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
@@ -37,4 +38,16 @@ public sealed partial class MassSleepPowerComponent : BasePsionicPowerComponent
     /// </summary>
     [DataField]
     public float WarningRadius = 6f;
+
+    /// <summary>
+    /// The reagent ID that will be inserted into the bloodstream of the victims.
+    /// </summary>
+    [DataField]
+    public string ReagentId = "Prometheum";
+
+    /// <summary>
+    /// The amount of reagent to be inserted into the victims every second.
+    /// </summary>
+    [DataField]
+    public FixedPoint2 Quantity = 0.5f;
 }

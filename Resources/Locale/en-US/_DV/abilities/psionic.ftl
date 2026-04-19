@@ -45,7 +45,7 @@ psionic-power-mindswap-own-mindshield = Your mindshield.. stops your mind from l
 psionic-power-mindswap-original-lost = The psionic tether to your original body was severed!
 
 # Noospheric Zap
-psionic-power-noospheric-zap-user = Lightning shoot out of {THE($user)}'s fingertips!
+psionic-power-noospheric-zap-user = Lightning shoots out of {THE($user)}'s fingertips!
 psionic-power-noospheric-zap-battery = {CAPITALIZE(THE($user))}'s charge ramps up!
 
 # Precognition

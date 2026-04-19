@@ -1,4 +1,4 @@
-﻿using Content.Shared._DV.Clothing.Components;
+using Content.Shared._DV.Clothing.Components;
 using Content.Shared.Alert;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Clothing;

@@ -1,15 +1,20 @@
 using Content.Shared._DV.Mind;
 using Content.Shared._DV.Psionics.Components;
 using Content.Shared._DV.Psionics.Components.PsionicPowers;
+using Content.Shared._DV.Psionics.Events;
 using Content.Shared._DV.Psionics.Events.PowerActionEvents;
 using Content.Shared.Examine;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Mind.Components;
+using Content.Shared.Speech;
+using Content.Shared.Stealth.Components;
 
 namespace Content.Shared._DV.Psionics.Systems.PsionicPowers;
 
 public abstract class SharedTelegnosisPowerSystem : BasePsionicPowerSystem<TelegnosisPowerComponent, TelegnosisPowerActionEvent>
 {
+    [Dependency] private readonly MetaDataSystem _metaData = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -18,6 +23,7 @@ public abstract class SharedTelegnosisPowerSystem : BasePsionicPowerSystem<Teleg
         SubscribeLocalEvent<TelegnosticProjectionComponent, InteractionAttemptEvent>(OnInteractionAttempt);
         SubscribeLocalEvent<TelegnosisPowerComponent, ShowSSDIndicatorEvent>(OnShowSSDIndicator);
         SubscribeLocalEvent<TelegnosisPowerComponent, ExaminedEvent>(OnExamine);
+        SubscribeLocalEvent<TelegnosisPowerComponent, MindSwapLinkSeveredEvent>(OnLinkSevered);
     }
 
     private void OnMindRemoved(Entity<TelegnosticProjectionComponent> projection, ref MindRemovedMessage args)
@@ -45,6 +51,16 @@ public abstract class SharedTelegnosisPowerSystem : BasePsionicPowerSystem<Teleg
             return;
 
         args.PushMarkup($"[color=yellow]{Loc.GetString("telegnosis-power-ssd", ("ent", entity))}[/color]");
+    }
+
+    private void OnLinkSevered(Entity<TelegnosisPowerComponent> victim, ref MindSwapLinkSeveredEvent args)
+    {
+        RemComp<PsionicallyInvisibleComponent>(victim);
+        RemComp<StealthComponent>(victim);
+        EnsureComp<SpeechComponent>(victim);
+        EnsureComp<DispellableComponent>(victim);
+        _metaData.SetEntityName(victim, Loc.GetString("telegnostic-trapped-entity-name"));
+        _metaData.SetEntityDescription(victim, Loc.GetString("telegnostic-trapped-entity-desc"));
     }
 
     public EntityUid GetCasterProjection(Entity<TelegnosisPowerComponent> entity)

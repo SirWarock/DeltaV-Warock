@@ -24,7 +24,7 @@ internal sealed class MassMindSwapRule : StationEventSystem<MassMindSwapRuleComp
     [Dependency] private readonly ChatSystem _chat = default!;
     [Dependency] private readonly SharedMindSwapPowerSystem _mindSwap = default!;
     [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
-    [Dependency] private readonly SharedPsionicSystem _psionic = default!;
+    [Dependency] private readonly PsionicSystem _psionic = default!;
 
     private TimeSpan _warningSoundLength;
     private ResolvedSoundSpecifier _resolvedWarningSound = String.Empty;
@@ -108,9 +108,9 @@ internal sealed class MassMindSwapRule : StationEventSystem<MassMindSwapRuleComp
                 // Remove this actor from the pool of swap candidates before they go.
                 psionicPool.Remove(actor);
 
-                // Do the swap. Also ignore mindshields, because this is the big boi swap.
-                _mindSwap.SwapMinds(actor, other, false, component.IsTemporary, true);
-            } while (true);
+                _psionic.SwapMinds(actor, other, false, component.IsTemporary, component.IgnoreMindshields);
+                break;
+            }
         }
     }
 }

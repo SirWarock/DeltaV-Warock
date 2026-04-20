@@ -1,9 +1,8 @@
+using Content.Server._DV.Psionics.Systems;
+using Content.Server._DV.StationEvents.Components;
 using Content.Server.Chat.Systems;
-using Content.Server.StationEvents.Components;
 using Content.Server.StationEvents.Events;
 using Content.Shared._DV.Psionics.Components;
-using Content.Shared._DV.Psionics.Systems;
-using Content.Shared._DV.Psionics.Systems.PsionicPowers;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
@@ -12,7 +11,7 @@ using Robust.Shared.Audio;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
 
-namespace Content.Server.Nyanotrasen.StationEvents.Events;
+namespace Content.Server._DV.StationEvents.GameRules;
 
 /// <summary>
 /// Forces a mind swap on all non-insulated potential psionic entities.
@@ -22,12 +21,12 @@ internal sealed class MassMindSwapRule : StationEventSystem<MassMindSwapRuleComp
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly AudioSystem _audio = default!;
     [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly SharedMindSwapPowerSystem _mindSwap = default!;
     [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
     [Dependency] private readonly PsionicSystem _psionic = default!;
 
     private TimeSpan _warningSoundLength;
     private ResolvedSoundSpecifier _resolvedWarningSound = String.Empty;
+
     protected override void Started(EntityUid uid, MassMindSwapRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
         base.Started(uid, component, gameRule, args);
@@ -38,8 +37,8 @@ internal sealed class MassMindSwapRule : StationEventSystem<MassMindSwapRuleComp
         component.SwapTime = Timing.CurTime + component.Delay;
         component.SoundTime = component.SwapTime - _warningSoundLength;
 
-        var announcement = Loc.GetString("mass-mind-swap-event-announcement", ("time", component.Delay.TotalSeconds));
-        var sender = Loc.GetString("mass-mind-swap-event-sender");
+        var announcement = Loc.GetString(component.AnnouncementText, ("time", component.Delay.TotalSeconds));
+        var sender = Loc.GetString(component.AnnouncementSender);
         _chat.DispatchGlobalAnnouncement(announcement, sender, true, component.AnnouncementSound, Color.White);
     }
 
@@ -54,6 +53,7 @@ internal sealed class MassMindSwapRule : StationEventSystem<MassMindSwapRuleComp
             {
                 _audio.PlayGlobal(_resolvedWarningSound, Filter.Broadcast(), true);
                 comp.SoundTime = null;
+                continue;
             }
 
             if (comp.SwapTime == null || comp.SwapTime > Timing.CurTime)
@@ -76,37 +76,33 @@ internal sealed class MassMindSwapRule : StationEventSystem<MassMindSwapRuleComp
             if (!_mobStateSystem.IsAlive(psion, mobState) || !_psionic.CanBeTargeted(psion))
                 continue;
 
-            psionicPool.Add(psion);
-
             if (HasComp<ActorComponent>(psion))
             {
-                // This is so we don't bother mindswapping NPCs with NPCs.
                 psionicActors.Add(psion);
+                psionicPool.Add(psion);
             }
+            else if (!component.OnlyPlayers)
+                psionicPool.Add(psion);
         }
 
-        // Shuffle the list of candidates.
-        _random.Shuffle(psionicPool);
+        var maxPairs = component.MaxNumberOfPairs;
+        if (maxPairs.HasValue)
+            _random.Next(1, maxPairs.Value);
 
         foreach (var actor in psionicActors)
         {
-            do
+            while (psionicPool.Count > 0 && maxPairs is null or > 0)
             {
-                if (psionicPool.Count == 0)
-                    // We ran out of candidates. Exit early.
-                    return;
-
-                // Pop the last entry off.
-                var other = psionicPool[^1];
-                psionicPool.RemoveAt(psionicPool.Count - 1);
-
+                var other = _random.PickAndTake(psionicPool);
+                // Don't be yourself. Find someone else.
                 if (other == actor)
-                    // Don't be yourself. Find someone else.
                     continue;
 
                 // A valid swap target has been found.
                 // Remove this actor from the pool of swap candidates before they go.
                 psionicPool.Remove(actor);
+                if (maxPairs.HasValue)
+                    maxPairs--;
 
                 _psionic.SwapMinds(actor, other, false, component.IsTemporary, component.IgnoreMindshields);
                 break;

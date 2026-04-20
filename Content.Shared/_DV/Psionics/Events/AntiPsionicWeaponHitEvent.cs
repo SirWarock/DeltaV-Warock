@@ -1,4 +1,4 @@
-﻿namespace Content.Shared._DV.Psionics.Events;
+namespace Content.Shared._DV.Psionics.Events;
 
 /// <summary>
 /// This is raised on the entity when it's struck with an anti-psionic weapon.

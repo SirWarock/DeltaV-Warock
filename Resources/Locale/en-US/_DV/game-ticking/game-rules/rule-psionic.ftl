@@ -1,4 +1,4 @@
-﻿## Psionic Gamerule Messages
+## Psionic Gamerule Messages
 gamerule-noospheric-zap-seize = An external eruption overwhelms your mind!
 gamerule-noospheric-zap-seize-potential-regained = Your mind restructures.. it demands knowledge...
 

@@ -126,4 +126,3 @@ eruption-warning-window-acknowledge-button = I Understand
 psionic-power-mass-sleep-warning = Your eyelids begin to droop...
 
 telegnosis-power-ssd = { CAPITALIZE(POSS-ADJ($ent)) } eyes are unfocused and darting around, as if trying to see something that isn't there.
-

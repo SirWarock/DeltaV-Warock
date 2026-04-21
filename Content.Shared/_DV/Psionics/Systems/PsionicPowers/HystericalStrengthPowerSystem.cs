@@ -41,7 +41,7 @@ public sealed class HystericalStrengthPowerSystem : BasePsionicPowerSystem<Hyste
         // If the action ISN'T toggled, it WILL be toggled after this code, so we have to treat it as if it IS toggled on.
         if (!args.Action.Comp.Toggled)
         {
-            if (!_statusEffects.TrySetStatusEffectDuration(args.Performer, HystericalStrengthEffectProto, out var statusEffect))
+            if (!_statusEffects.TryUpdateStatusEffectDuration(args.Performer, HystericalStrengthEffectProto))
                 return;
 
             _fixture.TryCreateFixture(args.Performer, new PhysShapeCircle(), _fixtureID, 500, false, friction: 0f);

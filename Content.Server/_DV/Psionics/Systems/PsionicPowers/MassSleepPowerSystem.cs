@@ -78,7 +78,7 @@ public sealed class MassSleepPowerSystem : SharedMassSleepPowerSystem
         {
             if (args.Used != target && Psionic.CanBeTargeted(target))
                 continue;
-            
+
             _statusEffects.TryUpdateStatusEffectDuration(target, MassSleepStatusEffect, psionic.Comp.Duration);
         }
     }

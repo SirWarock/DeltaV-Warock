@@ -1,4 +1,3 @@
-using Content.Shared.Damage;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
@@ -22,30 +21,8 @@ public sealed partial class HystericalStrengthPowerComponent : BasePsionicPowerC
     public float AddedDensity = 500;
 
     /// <summary>
-    /// The strength of the resistance to the clothing slowdown.
-    /// </summary>
-    /// <example>
-    /// 0.75 equals to a 75% resistance to clothing slowdown modifiers.
-    /// </example>
-    [DataField]
-    public float ClothingSlowdownModifier = 0.75f;
-
-    /// <summary>
     /// How much glimmer it generates each damage tick.
     /// </summary>
     [DataField]
     public int PassiveGlimmerGeneration = 1;
-
-    /// <summary>
-    /// The damage dealt to the psionic when the power is active.
-    /// </summary>
-    [DataField]
-    public DamageSpecifier Damage = new()
-    {
-        DamageDict = new ()
-        {
-            { "Asphyxiation", 2.5 },
-            { "Bloodloss", 1.5 },
-        }
-    };
 }

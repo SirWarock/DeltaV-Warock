@@ -40,5 +40,10 @@
   name: affected by hysterical strength
   components:
   - type: HystericalStrengthStatusEffect
+    damage:
+      types:
+        Asphyxiation: 2.5
+        Bloodloss: 1.5
   - type: ClothingSlowResistance
+    modifier: 0.75
   - type: IgnoreSlowOnDamage

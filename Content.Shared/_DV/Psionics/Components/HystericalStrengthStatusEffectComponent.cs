@@ -10,15 +10,8 @@ public sealed partial class HystericalStrengthStatusEffectComponent : Component
     /// <summary>
     /// The damage dealt to entities that have this effect.
     /// </summary>
-    [DataField, AutoNetworkedField]
-    public DamageSpecifier Damage = new()
-    {
-        DamageDict = new ()
-        {
-            { "Asphyxiation", 2.5 },
-            { "Bloodloss", 1.5 },
-        }
-    };
+    [DataField(required: true)]
+    public DamageSpecifier Damage;
 
     /// <summary>
     /// How long each damage tick is delayed by.
@@ -41,6 +34,6 @@ public sealed partial class HystericalStrengthStatusEffectComponent : Component
     /// <summary>
     /// How much glimmer it generates each damage tick.
     /// </summary>
-    [DataField, AutoNetworkedField]
+    [DataField]
     public int PassiveGlimmerGeneration = 1;
 }

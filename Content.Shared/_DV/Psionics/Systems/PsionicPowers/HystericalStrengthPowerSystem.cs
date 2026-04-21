@@ -41,15 +41,8 @@ public sealed class HystericalStrengthPowerSystem : BasePsionicPowerSystem<Hyste
         // If the action ISN'T toggled, it WILL be toggled after this code, so we have to treat it as if it IS toggled on.
         if (!args.Action.Comp.Toggled)
         {
-            if (!_statusEffects.TrySetStatusEffectDuration(args.Performer, HystericalStrengthEffectProto, out var statusEffect)
-                || !TryComp<ClothingSlowResistanceComponent>(statusEffect, out var resistanceComp)
-                || !TryComp<HystericalStrengthStatusEffectComponent>(statusEffect, out var hystericalEffectComp))
+            if (!_statusEffects.TrySetStatusEffectDuration(args.Performer, HystericalStrengthEffectProto, out var statusEffect))
                 return;
-
-            resistanceComp.Modifier = psionic.Comp.ClothingSlowdownModifier;
-            hystericalEffectComp.Damage = psionic.Comp.Damage;
-            hystericalEffectComp.PassiveGlimmerGeneration = psionic.Comp.PassiveGlimmerGeneration;
-            Dirty<ClothingSlowResistanceComponent, HystericalStrengthStatusEffectComponent>((statusEffect.Value, resistanceComp, hystericalEffectComp));
 
             _fixture.TryCreateFixture(args.Performer, new PhysShapeCircle(), _fixtureID, 500, false, friction: 0f);
 

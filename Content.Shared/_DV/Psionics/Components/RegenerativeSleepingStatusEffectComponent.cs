@@ -16,12 +16,12 @@ public sealed partial class RegenerativeSleepingStatusEffectComponent : Componen
     /// <summary>
     /// The reagent ID that will be inserted into the bloodstream.
     /// </summary>
-    [DataField, AutoNetworkedField]
+    [DataField]
     public string ReagentId = "Prometheum";
 
     /// <summary>
     /// The amount of reagent to be inserted every second.
     /// </summary>
-    [DataField, AutoNetworkedField]
-    public FixedPoint2 Quantity = 0.5f;
+    [DataField(required: true)]
+    public FixedPoint2 Quantity;
 }

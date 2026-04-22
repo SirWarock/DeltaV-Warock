@@ -76,7 +76,7 @@ public sealed class MassSleepPowerSystem : SharedMassSleepPowerSystem
 
         foreach (var target in _lookup.GetEntitiesInRange(args.User, psionic.Comp.Radius))
         {
-            if (args.Used != target && Psionic.CanBeTargeted(target))
+            if (args.Used == target || !Psionic.CanBeTargeted(target))
                 continue;
 
             _statusEffects.TryUpdateStatusEffectDuration(target, MassSleepStatusEffect, psionic.Comp.Duration);

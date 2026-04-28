@@ -233,7 +233,7 @@
   parent: BasePsionicAction
   id: ActionAltruisticHemomancy
   name: Coagulate
-  description: Command your blood to heal another alive being, exchanging your own crimson essence.
+  description: Command your blood to heal another alive being, exchanging your own crimson essence. Command it unto the dead to revert their rot, but it'll cost ya..
   components:
   - type: Action
     icon:

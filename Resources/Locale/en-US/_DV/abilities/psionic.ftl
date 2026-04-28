@@ -27,6 +27,16 @@ psionic-equipped-shielded-in-doafter = The insulative gear broke your concentrat
 psionic-dispelled = Someone dispelled your psionic concentration!
 
 ## Specific Psionic messages
+# Altruistic Hemomancy
+psionic-power-altruistic-hemomancy-init = Your blood.. feels.. ALIVE!
+psionic-power-altruistic-hemomancy-healthy = Your blood responds.. with boredom.
+psionic-power-altruistic-hemomancy-insufficient-blood = Your blood grows thin.. you lose your focus..
+psionic-power-altruistic-hemomancy-rot-damage = Your blood twists and turns in agony as it vanquishes the rot..
+psionic-power-altruistic-hemomancy-start-self = Your blood beckons to your command, nurturing {THE($target)}'s body!
+psionic-power-altruistic-hemomancy-start-others = {CAPITALIZE(THE($user))}'s hands tear open, commanding blood into {THE($target)}'s wounds!
+psionic-power-altruistic-hemomancy-end-self = Your blood turns numb and sluggish, returning to your embrace.
+psionic-power-altruistic-hemomancy-end-others = {CAPITALIZE(THE($user))}'s blood retracts, closing their torn hands!
+
 # Fractured Form
 psionic-power-fractured-form-nobodies = You have no alternate forms to switch to!
 psionic-power-fractured-form-sleepy = You feel very sleepy... You should find somewhere to rest.

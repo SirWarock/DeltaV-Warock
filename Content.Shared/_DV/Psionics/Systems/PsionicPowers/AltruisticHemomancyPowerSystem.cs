@@ -1,4 +1,4 @@
-﻿using Content.Shared._DV.Psionics.Components.PsionicPowers;
+using Content.Shared._DV.Psionics.Components.PsionicPowers;
 using Content.Shared._DV.Psionics.Events.PowerActionEvents;
 using Content.Shared._DV.Psionics.Events.PowerDoAfterEvents;
 using Content.Shared.Atmos.Rotting;
@@ -46,7 +46,7 @@ public sealed class AltruisticHemomancyPowerSystem : BasePsionicPowerSystem<Altr
             Popup.PopupClient(Loc.GetString("psionic-power-altruistic-hemomancy-healthy"), args.Performer, args.Performer);
             return;
         }
-        
+
         var doAfterDuration = psionic.Comp.DoAfterDuration;
         if (_mobState.IsCritical(args.Target))
             doAfterDuration *= psionic.Comp.CriticalDoAfterDurationModifier;

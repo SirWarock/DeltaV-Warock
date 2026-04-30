@@ -1,4 +1,4 @@
-﻿using Content.Shared._DV.Clothing.Events;
+using Content.Shared._DV.Clothing.Events;
 using Content.Shared._DV.Psionics.Events;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Mobs;

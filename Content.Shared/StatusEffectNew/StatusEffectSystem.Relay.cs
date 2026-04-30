@@ -40,15 +40,7 @@ public sealed partial class StatusEffectsSystem
 
         SubscribeLocalEvent<StatusEffectContainerComponent, BleedModifierEvent>(RefRelayStatusEffectEvent);
 
-        // DeltaV Start - Psionics Refactor
-        SubscribeLocalEvent<StatusEffectContainerComponent, PsionicPowerUseAttemptEvent>(RefRelayStatusEffectEvent);
-        SubscribeLocalEvent<StatusEffectContainerComponent, TargetedByPsionicPowerEvent>(RefRelayStatusEffectEvent);
-        SubscribeLocalEvent<StatusEffectContainerComponent, DispelledEvent>(RelayStatusEffectEvent);
-        SubscribeLocalEvent<StatusEffectContainerComponent, PsionicSuppressedEvent>(RefRelayStatusEffectEvent);
-        SubscribeLocalEvent<StatusEffectContainerComponent, ModifySlowOnDamageSpeedEvent>(RefRelayStatusEffectEvent); // For Hysterical Strength Power
-        SubscribeLocalEvent<StatusEffectContainerComponent, ModifyClothingSlowdownEvent>(RefRelayStatusEffectEvent); // For Hysterical Strength Power
-        SubscribeLocalEvent<StatusEffectContainerComponent, MobStateChangedEvent>(RefRelayStatusEffectEvent); // For Hysterical Strength Power <- REMOVE THIS IF UPSTREAM ADDS THIS
-        // DeltaV End - Psionics Refactor
+        InitializeDeltaV(); // DeltaV - Added DeltaV partial file of the system.
     }
 
     private void RefRelayStatusEffectEvent<T>(EntityUid uid, StatusEffectContainerComponent component, ref T args) where T : struct

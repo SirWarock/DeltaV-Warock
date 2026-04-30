@@ -19,10 +19,4 @@ public sealed partial class HystericalStrengthPowerComponent : BasePsionicPowerC
     /// </summary>
     [DataField]
     public float AddedDensity = 500;
-
-    /// <summary>
-    /// How much glimmer it generates each damage tick.
-    /// </summary>
-    [DataField]
-    public int PassiveGlimmerGeneration = 1;
 }

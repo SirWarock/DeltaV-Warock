@@ -1,4 +1,4 @@
-﻿- type: entity
+- type: entity
   parent: BaseItem
   id: BaseMeleeWeaponHardlight # Different to BaseMeleeWeaponEnergy due to hardlight not being hot.
   abstract: true

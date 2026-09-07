@@ -48,7 +48,7 @@
     enabled: false
     radius: 2
     energy: 2
-    color: white
+    color: '#3F79C1'
     netsync: false
   - type: Appearance
   - type: ToggleableVisuals # Add support for multiple layers
